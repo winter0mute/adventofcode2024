@@ -8,8 +8,8 @@ URL: https://adventofcode.com/2024/day/1
 
 ## Solution
 I have 2 solutions
-* one in a [spreadsheet}(excel) with just a few functions (most time of this was downloading libreoffice).
-* and one in [bash](bash). Interestingly part2 was much easier.\
+* one in a [spreadsheet](excel) with just a few functions (most time of this was downloading libreoffice).
+* and one in [bash](bash). _No input validation is done!_ Interestingly part2 was much easier.\
 Invocation: 
     * _part1_: `./day1part1.sh ../input`
     * _part2_: `./day1part2.sh ../input`
