@@ -1,64 +1,47 @@
 #!/usr/bin/env bash
 
-left_array=()
-right_array=()
-distance=0
-valid=0
-safe_reports=0
+counter=0
 
-while read p; do
+while read -r p; do
     IFS=' ' read -r levels <<< $p
-    echo "$levels"
-    # num_of_reports_per_level=$(echo "$levels" | wc -w)
+    # echo "$levels"
     IFS=' ' read -r -a array <<< "$levels"
     arraylength=$((${#array[@]}-1))
     # echo "$arraylength"
 
-set -x
-
-    for (( i=0; i<arraylength; i++ ));
-        do
-        valid=0
-        # echo "index: $i, value: ${array[$i]}"
-        echo "${array[$i]} - ${array[$i+1]}"
-        echo "$((array[i] - array[i+1]))"
-        if [[ ${array[$i]} -eq ${array[$i+1]} ]];then
-            valid=1
-            break
-        elif ! [[ $((array[i+1] - array[i])) -le 3 ]];then
-            valid=1
+    valid=true
+    if [[ ${array[0]} -lt ${array[1]} ]]; then
+        isitasc=true
+    else
+        isitasc=false
+    fi
+    for (( i=0; i<arraylength; i++ )); do
+        # echo "${array[$i]} - ${array[$i+1]}" 
+        if [[ ${array[i]} -eq ${array[i+1]} ]]; then
+            valid=false
             break
         fi
+
+        if [[ $isitasc = true ]];then
+            if [[ ${array[i]} -gt ${array[i+1]} ]] || [[ $((array[i+1] - array[i])) -gt 3 ]]; then
+                valid=false
+                break   
+            fi        
+        fi
+
+        if [[ $isitasc = false ]];then
+            if [[ ${array[i]} -lt ${array[i+1]} ]] || [[ $((array[i] - array[i+1])) -gt 3 ]]; then
+                valid=false
+                break
+            fi            
+        fi
     done
-    # arraylength=${#levels[@]}
-    # echo "$arraylength"
-    # for i in ${levels[@]}
-    #     do
-    #     echo $i
-    # done
-    echo
-    [[ $valid ]] && safe_reports=$((safe_reports+1))
+    # echo "valid: $valid"
+    if [[ $valid = true ]]; then
+        # echo asdf
+        counter=$((counter+1))
+    fi
+
 done < $1
 
-
-echo "Safe reports: ${safe_reports}"
-exit
-
-IFS=$'\n' sorted_left_array=($(sort -n <<<"${left_array[*]}"))
-IFS=$'\n' sorted_right_array=($(sort -n <<<"${right_array[*]}"))
-
-# echo "${sorted_left_array[@]}"
-# echo "${sorted_right_array[@]}"
-
-for i in "${!sorted_left_array[@]}"; do
-    # printf "%s is in %s\n" "${sorted_left_array[i]}" "${sorted_right_array[i]}"
-    if [[ "${sorted_left_array[i]}" -gt "${sorted_right_array[i]}" ]]; then
-        distance=$((distance+$((sorted_left_array[i]-sorted_right_array[i]))))
-        # echo "$((sorted_left_array[i]-sorted_right_array[i]))"
-    else
-        distance=$((distance+$((sorted_right_array[i]-sorted_left_array[i]))))
-        # echo "$((sorted_right_array[i]-sorted_left_array[i]))"
-    fi
-done 
-
-echo $distance
+echo $counter
