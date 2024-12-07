@@ -1,4 +1,4 @@
-# Day 1
+# Day 2
 
 URL: https://adventofcode.com/2024/day/2
 
