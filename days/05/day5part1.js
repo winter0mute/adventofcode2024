@@ -1,38 +1,57 @@
 #!/usr/bin/env node
 import { EOL } from 'os';
 import { readFileSync } from 'fs';
-import { exit } from 'process';
 
 var fileToProcess = process.argv.slice(2);
 
-let rules=[];
+let rules=new Map();
 let pageSequences=[]
+let goodManuals=[];
 let returnVal=0
 
 var data = readFileSync(fileToProcess.toString()).toString().split(EOL);
-// console.log(data);
 
 let middleOfFile=data.indexOf('');
 
+// Load the rules in a Map
 for (let i = 0; i < middleOfFile; i++) {
-    rules.push(data[i]);    
+    let firstHalf=data[i].split('|')[0];
+    let secondHalf=data[i].split('|')[1];
+    if(rules.has(firstHalf)){
+        rules.get(firstHalf).push(secondHalf);
+     }else{
+        rules.set(firstHalf, [secondHalf]);
+     }
 }
 
+// Load the page sequences into arrays of an array
 for (let i = middleOfFile+1; i < data.length-1; i++) {
     pageSequences.push(data[i].split(','));    
 }
 
-console.log(rules);
-console.log(pageSequences);
-
+// Iterate over the sequences and check if an element breaks the rule:
+// generate a list of element before the current page and check if any of those are in the list from the relevant rule
 for (let i = 0; i < pageSequences.length; i++) {
-    for (let j = 0; j < pageSequences[i].length; j++) {
-//        const element = pageSequences[i][j];
-//        console.log(element);
-        console.log(pageSequences[i][j])
-        console.log(pageSequences[i])
-        console.log(pageSequences[i].slice(0,j+1))
+    let manualGood=true;
+    for (let j = 1; j < pageSequences[i].length; j++) {
+        let supArr=pageSequences[i].slice(0,j);
+
+        if (rules.get(pageSequences[i][j])){
+        let rulesArr=rules.get(pageSequences[i][j])
+        if (supArr.some(r=> (rulesArr).includes(r))) {
+            manualGood=false;
+            break;
+        }
+        }
     }
-    console.log();
+    if (manualGood) {
+        goodManuals.push(pageSequences[i]);
+    }
 }
 
+// Count the middle pages
+for (let index = 0; index < goodManuals.length; index++) {
+    returnVal+=Number(goodManuals[index][Math.trunc(goodManuals[index].length/2)])
+}
+
+console.log(returnVal);
