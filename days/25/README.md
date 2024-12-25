@@ -7,5 +7,5 @@ URL: https://adventofcode.com/2024/day/25
 * _part2_:  (You need to finish all other challenges before this is available.)
 
 ## Solution
-* _part1_: ./day25part1.js input
+* _part1_: `./day25part1.js input`
 * _part2_: TBD
