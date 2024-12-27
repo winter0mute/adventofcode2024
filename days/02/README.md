@@ -8,9 +8,9 @@ URL: https://adventofcode.com/2024/day/2
 
 ## Solution
 * _part1_:
-    * _bash_: `./day4part1.sh input`\
-    I wanted to be fancy with if shorthand forms but as all that bites you in your lower half (got confusing really quick and hard to debug) so reimplemented it with normal `if`s in the end.
-    * _JavaScript_: `./day4part1.js input`\
+    * _bash_: `./day2part1.sh input`\
+    I wanted to be fancy with `if` shorthand forms but as usual that bites you in your lower half (got confusing really quick and hard to debug) so reimplemented it with normal `if`s in the end.
+    * _JavaScript_: `./day2part1.js input`\
     Looked to be easier to implement then with `bash` but arrays in `JS` bit me multiple time:
         1. did create sorted lists from the input but for some reason the value of these were the original array instead of the sorted one so as a workaround I sort the list 7 times inside the for loop...
         1. Arrays are objects in `JS` so comparing is not trivial, need to do `JSON.stringify` magic: https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
