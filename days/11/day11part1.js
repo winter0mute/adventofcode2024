@@ -25,7 +25,6 @@ for (let i = 1; i <= 25; i++) {
             }
         loopCounter+=1;
         }
-        console.log('i: '+i);
 }
 
 console.log(array.length);

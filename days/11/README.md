@@ -11,7 +11,7 @@ URL: https://adventofcode.com/2024/day/11
 * _part2_: Same as _part1_ but iteration is 75.
 
 ## Solution
-* _part1_: `./day11part1.js input 25`\
+* _part1_: `./day11part1.js input`\
 Pretty straightforward, loop over the the array of numbers 25 times an apply the 3 rules.
 * _part2_: `./day11part2.js input 75`\
 With 75 iteration the number of stones and their values explode at around iteration 32-34 with the _part1_ solution, the key is that we don't care about the stone order and we can execute the relevant transformation rule ones and just log the number of stones this produces greatly reducing the time required to solve the challenge. Using a `Map` takes automatically of using only the uniq stones and the corresponding number of stones. The modification calculate the number of stones to 75 iteration a magnitude faster then the basic array one to 25. (~100ms vs ~1.1sec)
