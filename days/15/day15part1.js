@@ -14,6 +14,12 @@ function logWarehouseMap(params) {
     }
 }
 
+function moveRobot(paramX, paramY) {
+    warehouseMap[robotPosition[0]][robotPosition[1]]='.';
+    robotPosition=[robotPosition[0]+paramX,robotPosition[1]+paramY];
+    warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+}
+
 let middleOfFile=data.indexOf('');
 
 // Load the rules in a Map
@@ -57,9 +63,7 @@ for (let i = 0; i < moves.length; i++) {
             console.log('LEFT');
             switch (warehouseMap[robotPosition[0]][robotPosition[1]-1]) {
                 case '.':
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                    robotPosition=[robotPosition[0],robotPosition[1]-1];
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                    moveRobot(0,-1);
                     break;
                 
                 case '#':
@@ -81,9 +85,7 @@ for (let i = 0; i < moves.length; i++) {
                     if (nextEmptySpace!=-1) {
                         // warehouseMap[robotPosition[0]][robotPosition[1]-1]='.';
                         warehouseMap[robotPosition[0]][whereToPut]='O';
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                        robotPosition=[robotPosition[0],robotPosition[1]-1];
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                        moveRobot(0,-1);
                     }
                     break;
                 default:
@@ -95,9 +97,7 @@ for (let i = 0; i < moves.length; i++) {
             console.log('RIGHT');
             switch (warehouseMap[robotPosition[0]][robotPosition[1]+1]) {
                 case '.':
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                    robotPosition=[robotPosition[0],robotPosition[1]+1];
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                    moveRobot(0,1);
                     break;
                 
                 case '#':
@@ -120,9 +120,7 @@ for (let i = 0; i < moves.length; i++) {
                     if (nextEmptySpace!=-1) {
                         // warehouseMap[robotPosition[0]][robotPosition[1]+1]='.';
                         warehouseMap[robotPosition[0]][robotPosition[1]+nextEmptySpace]='O';
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                        robotPosition=[robotPosition[0],robotPosition[1]+1];
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                        moveRobot(0,1);
                     }
                     break;
                 default:
@@ -141,10 +139,7 @@ for (let i = 0; i < moves.length; i++) {
                     // console.log(warehouseMap);
                     // console.log('Mageic2');
                     
-                    
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                    robotPosition=[robotPosition[0]-1,robotPosition[1]];
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                    moveRobot(-1,0);
 
                     break;
                 
@@ -175,9 +170,7 @@ for (let i = 0; i < moves.length; i++) {
                         // warehouseMap[robotPosition[0]-1][robotPosition[1]]='.';
                         warehouseMap[whereToPut][robotPosition[1]]='O';
                         // console.log('nextEmptySpace - robotPosition[1]: '+nextEmptySpace+' - '+robotPosition[1]);
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                        robotPosition=[robotPosition[0]-1,robotPosition[1]];
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                        moveRobot(-1,0);
                     }
                     break;
                 default:
@@ -189,9 +182,7 @@ for (let i = 0; i < moves.length; i++) {
             console.log('DOWN');
             switch (warehouseMap[robotPosition[0]+1][robotPosition[1]]) {
                 case '.':
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                    robotPosition=[robotPosition[0]+1,robotPosition[1]];
-                    warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                    moveRobot(1,0);
                     break;
                 
                 case '#':
@@ -220,9 +211,7 @@ for (let i = 0; i < moves.length; i++) {
                     if (nextEmptySpace!=-1) {
                         // warehouseMap[robotPosition[0]+1][robotPosition[1]]='.';
                         warehouseMap[whereToPut][robotPosition[1]]='O';
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='.';
-                        robotPosition=[robotPosition[0]+1,robotPosition[1]];
-                        warehouseMap[robotPosition[0]][robotPosition[1]]='@';
+                        moveRobot(1,0);
                     }
                     break;
                 default:
@@ -252,31 +241,3 @@ for (let i = 0; i < warehouseMap.length; i++) {
 }
 
 console.log(gpsSum);
-
-
-// // Iterate over the sequences and check if an element breaks the rule:
-// // generate a list of element before the current page and check if any of those are in the list from the relevant rule
-// for (let i = 0; i < pageSequences.length; i++) {
-//     let manualGood=true;
-//     for (let j = 1; j < pageSequences[i].length; j++) {
-//         let supArr=pageSequences[i].slice(0,j);
-
-//         if (rules.get(pageSequences[i][j])){
-//         let rulesArr=rules.get(pageSequences[i][j])
-//         if (supArr.some(r=> (rulesArr).includes(r))) {
-//             manualGood=false;
-//             break;
-//         }
-//         }
-//     }
-//     if (manualGood) {
-//         goodManuals.push(pageSequences[i]);
-//     }
-// }
-
-// // Count the middle pages
-// for (let index = 0; index < goodManuals.length; index++) {
-//     returnVal+=Number(goodManuals[index][Math.trunc(goodManuals[index].length/2)])
-// }
-
-// console.log(returnVal);
