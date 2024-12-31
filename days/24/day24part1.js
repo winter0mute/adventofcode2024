@@ -5,53 +5,72 @@ import { readFileSync } from 'fs';
 var fileToProcess = process.argv.slice(2);
 
 let wires=new Map();
-let equations=[]
-let goodManuals=[];
-let returnVal=0
+let equations=[];
+let unknownEquations=0;
 
 var data = readFileSync(fileToProcess.toString()).toString().split(EOL);
 
 let middleOfFile=data.indexOf('');
 
-// Load the wires in a Map
+// Load the wires in a Map for results and in the equations array too
 for (let i = 0; i < middleOfFile; i++) {
-    let firstHalf=data[i].split(':')[0];
-    let secondHalf=data[i].split(' ')[1];
-    wires.set(firstHalf);
-    equations.push()
+    const firstHalf=data[i].split(':')[0];
+    const secondHalf=data[i].split(' ')[1];
+    wires.set(firstHalf, Number(secondHalf));
+    equations.push([firstHalf, Number(secondHalf), null, null, null])
 }
 
-// Load the page sequences into arrays of an array
+// Load the equations
+// Structure: [ equations name, value of equations (not known yet), operator, first operand, second operand ]
 for (let i = middleOfFile+1; i < data.length-1; i++) {
-    pageSequences.push(data[i].split(','));    
+    const [operand1, operator, operand2, eq_name]=data[i].replace(' -> ',' ').split(' ');
+    equations.push([eq_name, null, operator, operand1, operand2])
+    unknownEquations+=1;
 }
 
+// Loop over the equations and check the ones without value and if both operands are know then calculate and store the value until no null value equation exist
+while (unknownEquations!==0) {
+    for (let i = 0; i < equations.length; i++) {
+        if (equations[i][1]===null) {
+            const operator=equations[i][2];
+            const operand1=equations[i][3]
+            const operand2=equations[i][4]
 
-console.log(rules);
+            if (wires.has(operand1) && wires.has(operand2)) {
+                switch (operator) {
+                    case 'AND':
+                        equations[i][1]=wires.get(operand1) && wires.get(operand2);
+                        wires.set(equations[i][0],equations[i][1]);
+                        unknownEquations-=1;
+                        break;
+                
+                    case 'OR':
+                        equations[i][1]=wires.get(operand1) || wires.get(operand2);
+                        wires.set(equations[i][0],equations[i][1]);
+                        unknownEquations-=1;
+                        break;
+                
+                    case 'XOR':
+                        equations[i][1]=wires.get(operand1) ^ wires.get(operand2);
+                        wires.set(equations[i][0],equations[i][1]);
+                        unknownEquations-=1;
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+}
 
-// // Iterate over the sequences and check if an element breaks the rule:
-// // generate a list of element before the current page and check if any of those are in the list from the relevant rule
-// for (let i = 0; i < pageSequences.length; i++) {
-//     let manualGood=true;
-//     for (let j = 1; j < pageSequences[i].length; j++) {
-//         let supArr=pageSequences[i].slice(0,j);
+// Create the binary result from the wires starting with z
+const wiresSorted=[...wires.entries()].sort();
+let binaryZWires=[];
+for (let i = 0; i < wiresSorted.length; i++) {
+    if (wiresSorted[i][0][0]==='z') {
+        binaryZWires.push(wiresSorted[i][1]);
+    }
+}
 
-//         if (rules.get(pageSequences[i][j])){
-//         let rulesArr=rules.get(pageSequences[i][j])
-//         if (supArr.some(r=> (rulesArr).includes(r))) {
-//             manualGood=false;
-//             break;
-//         }
-//         }
-//     }
-//     if (manualGood) {
-//         goodManuals.push(pageSequences[i]);
-//     }
-// }
-
-// // Count the middle pages
-// for (let index = 0; index < goodManuals.length; index++) {
-//     returnVal+=Number(goodManuals[index][Math.trunc(goodManuals[index].length/2)])
-// }
-
-// console.log(returnVal);
+console.log(parseInt(binaryZWires.reverse().join(''),2));
