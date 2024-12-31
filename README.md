@@ -4,7 +4,7 @@
 
 ## List of solutions
 
-Total stars: 24 :star:
+Total stars: 25 :star:
 |Day|Part1|Part2|Remark|
 |---|---|---|---|
 |[01](days/01/README.md) |:white_check_mark:|:white_check_mark:||
