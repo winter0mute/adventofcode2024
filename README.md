@@ -30,6 +30,6 @@ Total stars: 24 :star:
 |21 ||||
 |22 ||||
 |23 ||||
-|24 ||||
+|[24](days/24/README.md) |:white_check_mark:|||
 |[25](days/25/README.md) |:white_check_mark:|| You need to solve all other challenges to access part2.|
 
