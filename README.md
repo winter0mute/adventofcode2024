@@ -4,7 +4,7 @@
 
 ## List of solutions
 
-Total stars: 24 :star:
+Total stars: 27 :star:
 |Day|Part1|Part2|Remark|
 |---|---|---|---|
 |[01](days/01/README.md) |:white_check_mark:|:white_check_mark:||
@@ -28,7 +28,7 @@ Total stars: 24 :star:
 |19 ||||
 |20 ||||
 |21 ||||
-|22 ||||
+|[22](days/22/README.md) |:white_check_mark:|:white_check_mark:||
 |23 ||||
 |[24](days/24/README.md) |:white_check_mark:|||
 |[25](days/25/README.md) |:white_check_mark:|| You need to solve all other challenges to access part2.|
