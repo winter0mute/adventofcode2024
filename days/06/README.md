@@ -9,4 +9,4 @@ URL: https://adventofcode.com/2024/day/6
 ## Solution
 * _part1_: `./day6part1.js input`
 * _part2_: `./day6part2.js input`\
-I took the solution of part1 and wrapped into a double for loop to add an extra obstacle on every empty position and run the previous test against the new layout, of course I added loop detection by storing the turns at coordinates (if you do the same turn at the same coordinate you are in a loop). Pretty strait forward but did take quit some time whit a strange bug where te test was only run against the first layout, turns out I did not reset the starting position... :facepalm:
+I took the solution of part1 and wrapped into a double for loop to add an extra obstacle on every empty position and run the previous test against the new layout, of course I added loop detection by storing the turns at coordinates (if you do the same turn at the same coordinate you are in a loop). Pretty strait forward but did take quite some time with a strange bug where the test was only run against the first layout, turns out I did not reset the starting position... :facepalm:
