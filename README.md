@@ -33,3 +33,11 @@ Total stars: 27 :star:
 |[24](days/24/README.md) |:white_check_mark:|||
 |[25](days/25/README.md) |:white_check_mark:|| You need to solve all other challenges to access part2.|
 
+## Takeaways
+
+* Challenge description
+    * Read the challenge description carefully (for example do you need to add or multiply the coordinates for the answer).
+    * The description has things highlighted in **bold**, those are usually key information.
+    * But beware, the bold parts could also be red herrings (like [day11](https://adventofcode.com/2024/day/11) mentioning that the order of stones are preserved, which is irrelevant for the solution but would cause a looong run).
+* Prepare the environment before December 1: all challenges will read a file for processing so you could have a boilerplate/skeleton to use every day.
+* I need to look into pathfinding algorithms to solve those kind of problems.
