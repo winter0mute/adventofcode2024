@@ -4,7 +4,7 @@
 
 ## List of solutions
 
-Total stars: 27 :star:
+Total stars: 28 :star:
 |Day|Part1|Part2|Remark|
 |---|---|---|---|
 |[01](days/01/README.md) |:white_check_mark:|:white_check_mark:||
@@ -23,7 +23,7 @@ Total stars: 27 :star:
 |[14](days/14/README.md) |:white_check_mark:|||
 |[15](days/15/README.md) |:white_check_mark:|||
 |16 ||||
-|17 ||||
+|[17](days/17/README.md) |:white_check_mark:|||
 |18 ||||
 |19 ||||
 |20 ||||
